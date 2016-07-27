@@ -56,7 +56,7 @@ function QRCode() {
     this.modules = null;
     this.moduleCount = 0;
     this.dataCache = null;
-    this.dataList = new Array();
+    this.dataList = [];
 }
 
 QRCode.prototype = {
@@ -111,6 +111,7 @@ QRCode.prototype = {
      * @param [data] {String} 绘制内容
      */
     draw: function (data) {
+        this.dataList = [];
         this.addData((data || '') + '');
         this.make();
     },
@@ -1277,4 +1278,8 @@ QRBitBuffer.prototype = {
 
 
 QRCode.correctLevel = QRErrorCorrectLevel;
-module.exports = QRCode;
+
+
+var Class = require('blear.classes.class');
+
+module.exports = Class.ify(QRCode);
