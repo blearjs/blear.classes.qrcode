@@ -13,3 +13,12 @@
 [coveralls-img]: https://img.shields.io/coveralls/blearjs/blear.classes.qrcode/master.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/github/blearjs/blear.classes.qrcode?branch=master
 
+
+# Usage
+```
+var qrcode = new QRCode();
+qrcode.draw('data');
+// ...
+```
+
+
