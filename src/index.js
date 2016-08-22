@@ -51,7 +51,7 @@ QR8bitByte.prototype = {
 //---------------------------------------------------------------------
 
 function QRCode() {
-    this.typeNumber = 1;
+    this.typeNumber = -1;
     this.errorCorrectLevel = QRErrorCorrectLevel.H;
     this.modules = null;
     this.moduleCount = 0;
@@ -80,28 +80,28 @@ QRCode.prototype = {
 
     make: function () {
         // Calculate automatically typeNumber if provided is < 1
-        // if (this.typeNumber < 1) {
-        //     var typeNumber = 1;
-        //     for (typeNumber = 1; typeNumber < 40; typeNumber++) {
-        //         var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
-        //
-        //         var buffer = new QRBitBuffer();
-        //         var totalDataCount = 0;
-        //         for (var i = 0; i < rsBlocks.length; i++) {
-        //             totalDataCount += rsBlocks[i].dataCount;
-        //         }
-        //
-        //         for (var i = 0; i < this.dataList.length; i++) {
-        //             var data = this.dataList[i];
-        //             buffer.put(data.mode, 4);
-        //             buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber));
-        //             data.write(buffer);
-        //         }
-        //         if (buffer.getLengthInBits() <= totalDataCount * 8)
-        //             break;
-        //     }
-        //     this.typeNumber = typeNumber;
-        // }
+        if (this.typeNumber < 1) {
+            var typeNumber = 1;
+            for (; typeNumber < 40; typeNumber++) {
+                var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+
+                var buffer = new QRBitBuffer();
+                var totalDataCount = 0;
+                for (var i = 0; i < rsBlocks.length; i++) {
+                    totalDataCount += rsBlocks[i].dataCount;
+                }
+
+                for (var i = 0; i < this.dataList.length; i++) {
+                    var data = this.dataList[i];
+                    buffer.put(data.mode, 4);
+                    buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber));
+                    data.write(buffer);
+                }
+                if (buffer.getLengthInBits() <= totalDataCount * 8)
+                    break;
+            }
+            this.typeNumber = typeNumber;
+        }
         this.makeImpl(false, this.getBestMaskPattern());
     },
 
