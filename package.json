@@ -1,6 +1,6 @@
 {
   "name": "blear.classes.qrcode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "二维码生成类",
   "scripts": {
     "live": "browser-sync start --config bs-config.js",
@@ -35,10 +35,10 @@
   "bugs": {
     "url": "https://github.com/blearjs/blear.classes.qrcode/issues"
   },
-  "dependencies": {},
-  "peerDependencies": {
+  "dependencies": {
     "blear.classes.class": "1.x"
   },
+  "peerDependencies": {},
   "devDependencies": {
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
